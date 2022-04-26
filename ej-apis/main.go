@@ -15,6 +15,6 @@ func main() {
 	}
 	fmt.Println("Pelicula obtenida de api de Studio Ghibli:")
 	for _, film := range films {
-		fmt.Println(film.String())
+		fmt.Println(film)
 	}
 }

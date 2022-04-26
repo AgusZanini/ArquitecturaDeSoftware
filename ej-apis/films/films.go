@@ -1,22 +1,23 @@
-package Films
+package films
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 )
 
 type film struct {
-	id                       string  `json:"id"`
-	title                    string  `json:"title"`
-	original_title           string  `json:"original_title"`
-	original_title_romanised string  `json:"original_title_romanised"`
-	description              string  `json:"description"`
-	director                 string  `json:"director"`
-	producer                 string  `json:"producer"`
-	release_date             string  `json:"release_date"`
-	running_time             float32 `json:"running_time"`
-	rt_score                 float32 `json:"rt_score"`
+	Id                       string  `json:"id"`
+	Title                    string  `json:"title"`
+	Original_title           string  `json:"original_title"`
+	Original_title_romanised string  `json:"original_title_romanised"`
+	Description              string  `json:"description"`
+	Director                 string  `json:"director"`
+	Producer                 string  `json:"producer"`
+	Release_date             string  `json:"release_date"`
+	Running_time             float32 `json:"running_time"`
+	Rt_score                 float32 `json:"rt_score"`
 }
 
 type Films []film
@@ -32,7 +33,7 @@ func parsefilms(bytes []byte) (Films, error) {
 	return films, nil
 }
 
-func getfilms(SiteID string) (Films, error) {
+func Getfilms(SiteID string) (Films, error) {
 	response, err := http.Get("https://ghibliapi.herokuapp.com/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49")
 	if err != nil {
 		return Films{}, err
@@ -44,4 +45,10 @@ func getfilms(SiteID string) (Films, error) {
 	}
 
 	return parsefilms(bytes)
+}
+
+func (film film) String() string {
+	return fmt.Sprintf(" - %s: %s: %s: %s: %s: %s: %s: %s: %f: %f", film.Id, film.Title, film.Original_title,
+		film.Original_title_romanised, film.Description, film.Director,
+		film.Producer, film.Release_date, film.Running_time, film.Rt_score)
 }
