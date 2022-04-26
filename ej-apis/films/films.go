@@ -39,7 +39,7 @@ func parsefilms(bytes []byte) (Films, error) {
 }
 
 func Getfilms(SiteID string) (Films, error) {
-	response, err := http.Get("https://ghibliapi.herokuapp.com/films/58611129-2dbc-4a81-a72f-77ddfc1b1b49")
+	response, err := http.Get("https://ghibliapi.herokuapp.com/films")
 	if err != nil {
 		return Films{}, err
 	}
@@ -53,7 +53,7 @@ func Getfilms(SiteID string) (Films, error) {
 }
 
 func (film film) String() string {
-	return fmt.Sprintf("id: %s\n title: %s\n original_title: %s\n original_title_romanised: %s\n description: %s\n director: %s\n producer: %s\n release_date: %s\n running_time: %s\n rt_score: %s\n people: %v\n species: %v\n locations: %v\n vehicles: %v\n url: %s",
+	return fmt.Sprintf("id: %s\n title: %s\n original_title: %s\n original_title_romanised: %s\n description: %s\n director: %s\n producer: %s\n release_date: %s\n running_time: %s\n rt_score: %s\n people: %v\n species: %v\n locations: %v\n vehicles: %v\n url: %s\n-\n",
 		film.Id, film.Title, film.Original_title,
 		film.Original_title_romanised, film.Description, film.Director,
 		film.Producer, film.Release_date, film.Running_time, film.Rt_score, film.People,
