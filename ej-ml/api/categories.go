@@ -2,18 +2,19 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 )
 
-type Categorie struct {
+type category struct {
 	Id   string `json:"id"`
-	Name string `json:"name`
+	Name string `json:"name"`
 }
 
-type Categories []Categorie
+type Categories []category
 
-func getcategories(SiteID string) (Categories, error) {
+func Getcategories(SiteID string) (Categories, error) {
 
 	resp, err := http.Get("https://api.mercadolibre.com/sites/MLA/categories")
 	if err != nil {
@@ -24,10 +25,10 @@ func getcategories(SiteID string) (Categories, error) {
 	if err != nil {
 		return Categories{}, err
 	}
-	return parsecategories(bytes)
+	return Parsecategories(bytes)
 }
 
-func parsecategories(bytes []byte) (Categories, error) {
+func Parsecategories(bytes []byte) (Categories, error) {
 
 	var cats Categories
 
@@ -36,4 +37,8 @@ func parsecategories(bytes []byte) (Categories, error) {
 		return Categories{}, err
 	}
 	return cats, nil
+}
+
+func (category category) String() string {
+	return fmt.Sprintf(" - %s: %s", category.Id, category.Name)
 }
