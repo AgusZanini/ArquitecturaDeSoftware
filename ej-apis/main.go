@@ -13,8 +13,8 @@ func main() {
 		fmt.Println("Error getting films: ", err.Error())
 		os.Exit(1)
 	}
-	fmt.Println("Pelicula obtenida de api de Studio Ghibli:")
+	fmt.Println("Peliculas obtenidas de api de Studio Ghibli:")
 	for _, film := range films {
-		fmt.Println(film)
+		fmt.Println(film.String())
 	}
 }
