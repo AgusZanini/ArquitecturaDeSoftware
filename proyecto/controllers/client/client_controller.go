@@ -53,7 +53,7 @@ func InsertClient(c *gin.Context) {
 	clientDto, er := service.ClientService.InsertClient(clientDto)
 
 	if er != nil {
-		c.JSON(er.status(), er)
+		c.JSON(er.Status(), er)
 		return
 	}
 
