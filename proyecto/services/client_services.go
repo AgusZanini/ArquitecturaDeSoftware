@@ -8,22 +8,23 @@ import (
 	errors "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/utils/errors"
 )
 
-type ClientService struct{}
+type clientservice struct{}
 
-type ClientServiceInterface interface {
-	GetClientById(id int) (dto.ClientDto, errors.ApiError) // no se si devuelve error jeje
+type clientserviceInterface interface {
+	GetClientById(id int) (dto.ClientDto, errors.ApiError)
 	GetClients() (dto.ClientsDto, errors.ApiError)
 	InsertClient(dto.ClientDto) (dto.ClientDto, errors.ApiError)
 }
 
-var clientservice ClientServiceInterface
-
+var (
+	ClientService clientserviceInterface
+)
 
 func init() {
-	clientservice = &ClientService{}
+	ClientService = &clientservice{}
 }
 
-func (s *ClientService) GetClientById(id int)(dto.ClientDto, errors.ApiError) {
+func (s *clientservice) GetClientById(id int) (dto.ClientDto, errors.ApiError) {
 
 	var cliente model.Client = clientClient.GetClientById(id)
 	var clientDto dto.ClientDto
@@ -42,7 +43,7 @@ func (s *ClientService) GetClientById(id int)(dto.ClientDto, errors.ApiError) {
 	return clientDto, nil
 }
 
-func (s *ClientService) GetClients() (dto.ClientsDto, errors.ApiError){
+func (s *clientservice) GetClients() (dto.ClientsDto, errors.ApiError) {
 
 	var clientes model.Clients = clientClient.GetClients()
 	var clientsDto dto.ClientsDto
@@ -63,24 +64,20 @@ func (s *ClientService) GetClients() (dto.ClientsDto, errors.ApiError){
 	return clientsDto, nil
 }
 
-func (s *ClientService) InsertClient(clientDto dto.ClientDto) (dto.ClientDto, errors.ApiError) {
+func (s *clientservice) InsertClient(clientDto dto.ClientDto) (dto.ClientDto, errors.ApiError) {
 
 	var cliente model.Client
 
-	cliente.ID_client = clientDto.ID_client
 	cliente.First_name = clientDto.First_name
 	cliente.Last_name = clientDto.Last_name
 	cliente.Password = clientDto.Password
 	cliente.Phone = clientDto.Phone
 
-	
 	//En el ejemplo de edu hace estas dos lineas, preguntar por que
 
-	cliente = clientClient.
+	cliente = clientClient.InsertClient(cliente)
 
 	clientDto.ID_client = cliente.ID_client
-	
 
 	return clientDto, nil
 }
-
