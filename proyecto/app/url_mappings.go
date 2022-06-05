@@ -1,9 +1,9 @@
 package app
 
 import (
-	"github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/controllers/client_controller"
+	"fmt"
 
-	log "github.com/sirupsen/logrus"
+	"fmt"
 )
 
 func mapUrls() {
@@ -13,5 +13,5 @@ func mapUrls() {
 	router.GET("/client", client_controller.GetClients)
 	router.POST("client", client_controller.InsertClient)
 
-	log.Info("Se termino de configurar el mapeo de los datos")
+	fmt.Println("Se termino de configurar el mapeo de los datos")
 }

@@ -3,6 +3,7 @@ package app
 import (
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
+	"fmt"
 )
 
 var router *gin.engine
@@ -14,6 +15,6 @@ func init() {
 func StartRoutes() {
 	mapUrls()
 
-	log.Info("Starting Server")
+	fmt.Println("Starting Server")
 	router.Run(":8080")
 }
