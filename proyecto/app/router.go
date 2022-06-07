@@ -2,11 +2,10 @@ package app
 
 import (
 	"github.com/gin-gonic/gin"
-	log "github.com/sirupsen/logrus"
 	"fmt"
 )
 
-var router *gin.engine
+var router *gin.Engine
 
 func init() {
 	router = gin.Default()
