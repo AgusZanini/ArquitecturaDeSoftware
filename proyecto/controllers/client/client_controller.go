@@ -1,13 +1,18 @@
 package controllers
 
 import (
+	//"context"
+	//"time"
+
 	"github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/dto"
+	service "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/services"
+
+	//"github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/model"
 	"github.com/gin-gonic/gin"
+	//"github.com/go-playground/validator/v10"
 
 	"net/http"
 	"strconv"
-
-	service "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/services"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -35,6 +40,7 @@ func GetClients(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(err.Status(), err)
+		return
 	}
 
 	c.JSON(http.StatusOK, clientsDto)
@@ -59,3 +65,31 @@ func InsertClient(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, clientDto)
 }
+
+/*
+func SignUp() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		ctx, cancel := context.WithTimeout(context.Background(), 100 *time.Second)
+		defer cancel()
+
+		var client model.Client
+		err := c.BindJSON(&client)
+
+		if err != nil {
+			log.Error(http.StatusBadRequest, err.Error())
+			c.JSON(http.StatusBadRequest, err.Error())
+			return
+		}
+
+		validationErr := validate.Struct(client)
+
+		if validationErr != nil {
+			log.Error(http.StatusBadRequest, validationErr.Error())
+			c.JSON(http.StatusBadRequest, validationErr.Error())
+			return
+		}
+
+	}
+}
+
+*/

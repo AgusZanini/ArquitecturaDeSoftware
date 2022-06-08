@@ -1,11 +1,13 @@
 package db
 
 import (
-	//"os"
+	//"database/sql"
 
+	clientclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/client"
+	productclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/product"
 	"github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/model"
-	//clientclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/client"
 
+	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 
 	"fmt"
@@ -16,7 +18,8 @@ import (
 )
 
 var (
-	db *gorm.DB
+	db  *gorm.DB
+	err error
 )
 
 func init() {
@@ -28,7 +31,8 @@ func init() {
 	DBHost := "sql10.freemysqlhosting.net"
 	// ------------------------
 
-	db, err = gorm.Open("mysql", DBUser+":"+DBPass+"@tcp("+DBHost+":3306)/"+DBName+"?charset=utf8&parseTime=True")
+	dsn := DBUser + ":" + DBPass + "@tcp(" + DBHost + ":3306)/" + DBName + "?charset=utf8&parseTime=True"
+	db, err = gorm.Open(mysql.Open(dsn), &gorm.Config{})
 
 	if err != nil {
 		log.Info("Connection Failed to Open")
@@ -38,7 +42,9 @@ func init() {
 	}
 
 	// We need to add all CLients that we build
-	userClient.Db = db
+	clientclient.Dbclient = db
+	productclient.Dbproduct = db
+
 }
 
 func StartDbEngine() {
