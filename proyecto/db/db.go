@@ -3,8 +3,10 @@ package db
 import (
 	//"database/sql"
 
-	clientclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/client"
-	productclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/product"
+	//clientclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/client"
+	//productclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/product"
+	//orderclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/order"
+	//orderdetailclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/orderdetail"
 	"github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/model"
 
 	"gorm.io/driver/mysql"
@@ -12,7 +14,7 @@ import (
 
 	"fmt"
 
-	"os"
+	//"os"
 
 	log "github.com/sirupsen/logrus"
 )
@@ -24,11 +26,11 @@ var (
 
 func init() {
 	// DB Connections Paramters
-	DBName := "sql10482597"
-	DBUser := "sql10482597"
+	DBName := "bdproyecto"
+	DBUser := "queti"
 	//DBPass := ""
-	DBPass := os.Getenv("MVC_DB_PASS")
-	DBHost := "sql10.freemysqlhosting.net"
+	DBPass := "hola" //os.Getenv("MVC_DB_PASS")
+	DBHost := "127.0.0.1"
 	// ------------------------
 
 	dsn := DBUser + ":" + DBPass + "@tcp(" + DBHost + ":3306)/" + DBName + "?charset=utf8&parseTime=True"
@@ -42,14 +44,18 @@ func init() {
 	}
 
 	// We need to add all CLients that we build
-	clientclient.Dbclient = db
-	productclient.Dbproduct = db
+	//clientclient.Dbclient = db
+	//productclient.Dbproduct = db
+	//orderclient.Dbclient = db
+	//orderdetailclient.Dborderdetail = db
 
 }
 
 func StartDbEngine() {
 	db.AutoMigrate(&model.Client{})
 	db.AutoMigrate(&model.Product{})
+	db.AutoMigrate(&model.Order{})
+	db.AutoMigrate(&model.OrderDetail{})
 
 	fmt.Println("Finalizando migracion de las tablas de la BD")
 }
