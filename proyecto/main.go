@@ -1,8 +1,8 @@
 package main
 
-import(
-	db "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/db"
+import (
 	app "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/app"
+	db "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/db"
 )
 
 func main() {
