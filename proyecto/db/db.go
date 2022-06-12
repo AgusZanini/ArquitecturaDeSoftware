@@ -26,7 +26,7 @@ var (
 
 func init() {
 	// DB Connections Paramters
-	DBName := "basepiola"
+	DBName := "mydb"
 	DBUser := "root"
 	//DBPass := ""
 	DBPass := "root" //os.Getenv("MVC_DB_PASS")
