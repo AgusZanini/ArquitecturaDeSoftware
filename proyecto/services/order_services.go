@@ -34,7 +34,8 @@ func (s *orderservice) GetOrderById(id int) (dto.OrderDto, errors.ApiError) {
 	}
 
 	orderDto.ID_order = order.ID_order
-	orderDto.Client.ID_client = order.Client.ID_client
+	//orderDto.Client.ID_client = order.Client.ID_client
+	orderDto.ID_client = order.ID_client
 	orderDto.Discount = order.Discount
 	orderDto.Total_price = order.Total_price
 	orderDto.State = order.State
@@ -49,7 +50,8 @@ func (s *orderservice) GetOrders() (dto.OrdersDto, errors.ApiError) {
 	for _, order := range orders {
 		var orderDto dto.OrderDto
 		orderDto.ID_order = order.ID_order
-		orderDto.Client.ID_client = order.Client.ID_client
+		//orderDto.Client.ID_client = order.Client.ID_client
+		orderDto.ID_client = order.ID_client
 		orderDto.Discount = order.Discount
 		orderDto.Total_price = order.Total_price
 		orderDto.State = order.State
@@ -63,7 +65,8 @@ func (s *orderservice) GetOrders() (dto.OrdersDto, errors.ApiError) {
 func (s *orderservice) InsertOrder(orderDto dto.OrderDto) (dto.OrderDto, errors.ApiError) {
 	var order model.Order
 
-	order.Client.ID_client = orderDto.Client.ID_client
+	//order.Client.ID_client = orderDto.Client.ID_client
+	order.ID_client = orderDto.ID_client
 	order.Discount = orderDto.Discount
 	order.Total_price = orderDto.Total_price
 	order.State = orderDto.State

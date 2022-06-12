@@ -34,6 +34,21 @@ func GetClientById(c *gin.Context) {
 	c.JSON(http.StatusOK, clientDto)
 }
 
+func GetClientByUsername(c *gin.Context) {
+	log.Debug("usuario de cliente a cargar: " + c.Param("username")) //preguntar
+
+	username := c.Param("username")
+	var clientDto dto.ClientDto
+
+	clientDto, err := service.ClientService.GetClientByUsername(username)
+
+	if err != nil {
+		c.JSON(err.Status(), err)
+		return
+	}
+	c.JSON(http.StatusOK, clientDto)
+}
+
 func GetClients(c *gin.Context) {
 	var clientsDto dto.ClientsDto
 	clientsDto, err := service.ClientService.GetClients()

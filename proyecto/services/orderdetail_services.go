@@ -12,16 +12,16 @@ type orderdetailservice struct{}
 
 type orderdetailserviceInterface interface {
 	GetOrderDetailById(id int) (dto.OrderdetailDto, errors.ApiError)
-	GetOrderdetails() (dto.OrderdetailsDto, errors.ApiError)
+	GetOrderDetails() (dto.OrderdetailsDto, errors.ApiError)
 	InsertOrderDetail(orderdetailDto dto.OrderdetailDto) (dto.OrderdetailDto, errors.ApiError)
 }
 
 var (
-	orderdetailService orderdetailserviceInterface
+	Orderdetailservice orderdetailserviceInterface
 )
 
 func init() {
-	orderdetailService = &orderdetailService{}
+	Orderdetailservice = &orderdetailservice{}
 }
 
 func (s *orderdetailservice) GetOrderDetailById(id int) (dto.OrderdetailDto, errors.ApiError) {
@@ -33,20 +33,11 @@ func (s *orderdetailservice) GetOrderDetailById(id int) (dto.OrderdetailDto, err
 	}
 
 	orderdetailDto.ID_orderdetail = orderdetail.ID_orderdetail
-	//orderdetailDto.Products = orderdetail.Products
-	for _, product := range orderdetail.Products {
-		var productDto dto.ProductDto
-
-		productDto.ID_product = product.ID_product
-		productDto.Base_price = product.Base_price
-		productDto.Description = product.Description
-		productDto.Internal_code = product.Internal_code
-		productDto.Stock = product.Stock
-
-		orderdetailDto.Products = append(orderdetailDto.Products, productDto)
-	}
+	//orderdetailDto.Order.ID_order = orderdetail.Order.ID_order
+	orderdetailDto.ID_order = orderdetail.ID_order
+	//orderdetailDto.Product.ID_product = orderdetail.Product.ID_product
+	orderdetailDto.ID_product = orderdetail.ID_product
 	orderdetailDto.Quantity = orderdetail.Quantity
-	orderdetailDto.Order = orderdetailDto.Order
 
 	return orderdetailDto, nil
 }
@@ -58,26 +49,31 @@ func (s *orderdetailservice) GetOrderDetails() (dto.OrderdetailsDto, errors.ApiE
 	for _, orderdetail := range orderdetails {
 		var orderdetailDto dto.OrderdetailDto
 		orderdetailDto.ID_orderdetail = orderdetail.ID_orderdetail
-		//orderdetailDto.Products = orderdetail.Products
-		for _, product := range orderdetail.Products {
-			var productDto dto.ProductDto
-
-			productDto.ID_product = product.ID_product
-			productDto.Base_price = product.Base_price
-			productDto.Description = product.Description
-			productDto.Internal_code = product.Internal_code
-			productDto.Stock = product.Stock
-
-			orderdetailDto.Products = append(orderdetailDto.Products, productDto)
-		}
+		//orderdetailDto.Order.ID_order = orderdetail.Order.ID_order
+		//orderdetailDto.Product.ID_product = orderdetail.Product.ID_product
+		orderdetailDto.ID_order = orderdetail.ID_order
+		orderdetailDto.ID_product = orderdetail.ID_product
 		orderdetailDto.Quantity = orderdetail.Quantity
-		orderdetailDto.Order = orderdetailDto.Order
 
 		orderdetailsDto = append(orderdetailsDto, orderdetailDto)
 	}
+
+	return orderdetailsDto, nil
 }
 
 func (s *orderdetailservice) InsertOrderDetail(orderdetailDto dto.OrderdetailDto) (dto.OrderdetailDto, errors.ApiError) {
 	var orderdetail model.OrderDetail
+
+	//orderdetail.Order.ID_order = orderdetailDto.Order.ID_order
+	//orderdetail.Product.ID_product = orderdetailDto.Product.ID_product
+	orderdetail.ID_order = orderdetailDto.ID_order
+	orderdetail.ID_product = orderdetailDto.ID_product
+	orderdetail.Quantity = orderdetailDto.Quantity
+
+	orderdetail = orderdetailClient.InsertOrderDetail(orderdetail)
+
+	orderdetail.ID_orderdetail = orderdetailDto.ID_orderdetail
+
+	return orderdetailDto, nil
 
 }

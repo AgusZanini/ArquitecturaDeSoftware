@@ -6,12 +6,14 @@ import (
 	"github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/dto"
 	"github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/model"
 	errors "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/utils/errors"
+	//hash "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/utils/hash"
 )
 
 type clientservice struct{}
 
 type clientserviceInterface interface {
 	GetClientById(id int) (dto.ClientDto, errors.ApiError)
+	GetClientByUsername(username string) (dto.ClientDto, errors.ApiError)
 	GetClients() (dto.ClientsDto, errors.ApiError)
 	InsertClient(dto.ClientDto) (dto.ClientDto, errors.ApiError)
 }
@@ -80,7 +82,7 @@ func (s *clientservice) GetClients() (dto.ClientsDto, errors.ApiError) {
 		clientDto.Password = cliente.Password
 		clientDto.Phone = cliente.Phone
 
-		clientsDto = append(clientsDto, clientDto) // preguntar
+		clientsDto = append(clientsDto, clientDto)
 	}
 
 	return clientsDto, nil
@@ -93,10 +95,8 @@ func (s *clientservice) InsertClient(clientDto dto.ClientDto) (dto.ClientDto, er
 	cliente.Username = clientDto.Username
 	cliente.First_name = clientDto.First_name
 	cliente.Last_name = clientDto.Last_name
-	cliente.Password = clientDto.Password
+	cliente.Password = clientDto.Password //hash.GetMD5Hash(clientDto.Password)
 	cliente.Phone = clientDto.Phone
-
-	//En el ejemplo de edu hace estas dos lineas, preguntar por que
 
 	cliente = clientClient.InsertClient(cliente)
 

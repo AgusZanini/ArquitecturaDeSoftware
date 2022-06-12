@@ -5,6 +5,6 @@ type Credentials struct {
 	Password string `json:"password"`
 }
 
-type Hash struct {
-	Hash string `json:"token"`
+type Token struct {
+	Token string `json:"token"`
 }

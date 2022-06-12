@@ -26,10 +26,10 @@ var (
 
 func init() {
 	// DB Connections Paramters
-	DBName := "bdproyecto"
-	DBUser := "queti"
+	DBName := "basepiola"
+	DBUser := "root"
 	//DBPass := ""
-	DBPass := "hola" //os.Getenv("MVC_DB_PASS")
+	DBPass := "root" //os.Getenv("MVC_DB_PASS")
 	DBHost := "127.0.0.1"
 	// ------------------------
 

@@ -13,6 +13,7 @@ type productservice struct{}
 type productserviceInterface interface {
 	GetProductById(id int) (dto.ProductDto, errors.ApiError)
 	GetProducts() (dto.ProductsDto, errors.ApiError)
+	SearchProducts(name string) (dto.ProductsDto, errors.ApiError)
 	InsertProducts(productDto dto.ProductDto) (dto.ProductDto, errors.ApiError)
 }
 
@@ -33,6 +34,7 @@ func (s *productservice) GetProductById(id int) (dto.ProductDto, errors.ApiError
 	}
 
 	productDto.ID_product = product.ID_product
+	productDto.Name = product.Name
 	productDto.Base_price = product.Base_price
 	productDto.Description = product.Description
 	productDto.Internal_code = product.Internal_code
@@ -48,6 +50,26 @@ func (s *productservice) GetProducts() (dto.ProductsDto, errors.ApiError) {
 	for _, product := range products {
 		var productDto dto.ProductDto
 		productDto.ID_product = product.ID_product
+		productDto.Name = product.Name
+		productDto.Base_price = product.Base_price
+		productDto.Description = product.Description
+		productDto.Internal_code = product.Internal_code
+		productDto.Stock = product.Stock
+
+		productsDto = append(productsDto, productDto)
+	}
+
+	return productsDto, nil
+}
+
+func (s *productservice) SearchProducts(name string) (dto.ProductsDto, errors.ApiError) {
+	var products model.Products = productClient.SearchProducts(name)
+	var productsDto dto.ProductsDto
+
+	for _, product := range products {
+		var productDto dto.ProductDto
+		productDto.ID_product = product.ID_product
+		productDto.Name = product.Name
 		productDto.Base_price = product.Base_price
 		productDto.Description = product.Description
 		productDto.Internal_code = product.Internal_code
@@ -63,6 +85,7 @@ func (s *productservice) InsertProducts(productDto dto.ProductDto) (dto.ProductD
 	var product model.Product
 
 	product.Base_price = productDto.Base_price
+	product.Name = productDto.Name
 	product.Description = productDto.Description
 	product.Internal_code = productDto.Internal_code
 	product.Stock = productDto.Stock

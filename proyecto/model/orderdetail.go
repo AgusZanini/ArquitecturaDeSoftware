@@ -1,10 +1,15 @@
 package model
 
+import "gorm.io/gorm"
+
 type OrderDetail struct {
-	ID_orderdetail		int		`gorm:"primaryKey"`
-	Products			Products
-	Order				Order
-	Quantity			int		`gorm:"type:int"`
+	gorm.Model
+	ID_orderdetail int `gorm:"primaryKey"`
+	//Product			Product
+	//Order				Order
+	ID_product int `gorm:"type:integer;not null"`
+	ID_order   int `gorm:"type:integer;not null"`
+	Quantity   int `gorm:"type:integer;not null"`
 }
 
 type OrderDetails []OrderDetail

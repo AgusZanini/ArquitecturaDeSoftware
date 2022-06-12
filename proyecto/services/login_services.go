@@ -6,12 +6,11 @@ import (
 	clientclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/client"
 	"github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/dto"
 	"github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/model"
-
+	errors "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/utils/errors"
+	"github.com/dgrijalva/jwt-go"
 	//errors "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/utils/errors"
-	"errors"
-
 	//"github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/utils/files"
-	hash "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/utils/hash"
+	//hash "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/utils/hash"
 )
 
 /*
@@ -53,23 +52,42 @@ func Login(cred dto.Credentials)  (dto.Token, error) {
 }
 */
 
-//login trucho
-func login(cred dto.Credentials) (dto.Hash, error) {
+/*
+//login satanico, preguntar
+func Login(cred dto.Credentials) (string, error) {
 	var client model.Client
 	client = clientclient.GetClientByUsername(cred.Client)
 
 	loggedIn := false
-	hash, _ := hash.HashPassword(cred.Password)
+	password := hash.GetMD5Hash(cred.Password)
 
-	if cred.Client == client.Username && hash == client.Hash {
+	if cred.Client == client.Username && password == client.Password {
 		loggedIn = true
 	}
 
 	if !loggedIn {
-		return dto.Hash{}, errors.New("credenciales no validas")
+		return password, errors.New("credenciales no validas")
 	}
-	return dto.Hash{
-		Hash: hash,
-	}, nil
+	return password, nil
+}
+*/
 
+var jwtKey = []byte("secret_key")
+
+func Login(cred dto.Credentials) (dto.Token, errors.ApiError) {
+	//var user model.User
+	var client model.Client = clientclient.GetClientByUsername(cred.Client) //objeto de la DB, a traves del DAO
+	//var userDto dto.UserDto
+	var tokenDto dto.Token
+
+	if client.ID_client == 0 {
+		return tokenDto, errors.NewBadRequestApiError("user not found")
+	}
+
+	if client.Password == cred.Password {
+		token := jwt.New(jwt.SigningMethodHS256)
+		tokenString, _ := token.SignedString(jwtKey)
+		tokenDto.Token = tokenString
+	}
+	return tokenDto, nil
 }
