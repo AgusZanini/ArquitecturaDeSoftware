@@ -14,7 +14,7 @@ var Dborderdetail *gorm.DB
 func GetOrderDetailById(id int) model.OrderDetail {
 	var orderdetail model.OrderDetail
 
-	Dborderdetail.Where("id = ?").Find(&orderdetail)
+	Dborderdetail.Where("ID_orderdetail = ?").Find(&orderdetail)
 	fmt.Println("orderdetail", orderdetail)
 
 	return orderdetail

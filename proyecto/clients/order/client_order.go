@@ -14,7 +14,7 @@ var Dborder *gorm.DB
 func GetOrderById(id int) model.Order {
 	var order model.Order
 
-	Dborder.Where("id = ?", id).First(&order)
+	Dborder.Where("ID_order = ?", id).First(&order)
 	fmt.Println("order", order)
 
 	return order

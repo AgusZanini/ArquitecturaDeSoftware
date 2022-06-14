@@ -14,7 +14,7 @@ var Dbclient *gorm.DB
 func GetClientById(id int) model.Client {
 	var cliente model.Client
 
-	Dbclient.Where("id = ?", id).First(&cliente)
+	Dbclient.Where("ID_client = ?", id).First(&cliente)
 	fmt.Println("Client: ", cliente)
 
 	return cliente
@@ -23,7 +23,7 @@ func GetClientById(id int) model.Client {
 func GetClientByUsername(username string) model.Client {
 	var cliente model.Client
 
-	Dbclient.Where("id = ?", username).First(&cliente)
+	Dbclient.Where("Username = ?", username).First(&cliente)
 	fmt.Println("Client: ", cliente)
 
 	return cliente

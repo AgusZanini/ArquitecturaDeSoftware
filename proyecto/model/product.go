@@ -4,7 +4,7 @@ import "gorm.io/gorm"
 
 type Product struct {
 	gorm.Model
-	ID_product    int     `gorm:"primaryKey"`
+	ID_product    int     `gorm:"primaryKey;AUTO_INCREMENT"`
 	Name          string  `gorm:"type:varchar(20);not null"`
 	Description   string  `gorm:"type:varchar(100);not null"`
 	Internal_code int     `gorm:"type:int;not null"`

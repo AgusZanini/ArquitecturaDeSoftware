@@ -16,7 +16,7 @@ func mapUrls() {
 	router.GET("/client/:client_id", client_controller.GetClientById)
 	//router.GET("/client/:username", client_controller.GetClientByUsername)
 	router.GET("/client", client_controller.GetClients)
-	router.POST("client", client_controller.InsertClient)
+	router.POST("/client", client_controller.InsertClient)
 
 	//mapeo de los productos
 

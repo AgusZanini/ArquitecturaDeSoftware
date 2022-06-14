@@ -6,7 +6,7 @@ import "gorm.io/gorm"
 
 type Client struct {
 	gorm.Model
-	ID_client  int    `gorm:"primarykey"`
+	ID_client  int    `gorm:"primarykey;AUTO_INCREMENT"`
 	Username   string `gorm:"type:varchar(20);not null;unique"`
 	First_name string `gorm:"type:varchar(20);not null"`
 	Last_name  string `gorm:"type:varchar(20);not null"`

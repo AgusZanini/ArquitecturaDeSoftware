@@ -14,7 +14,7 @@ var Dbproduct *gorm.DB
 func GetProductById(id int) model.Product {
 	var producto model.Product
 
-	Dbproduct.Where("id = ?", id).First(&producto)
+	Dbproduct.Where("ID_product = ?", id).First(&producto)
 	fmt.Println("producto: ", producto)
 
 	return producto
@@ -32,10 +32,20 @@ func GetProducts() model.Products {
 func SearchProducts(name string) model.Products {
 	var productos model.Products
 
-	Dbproduct.Where("name = ?", name).Find(&productos)
+	Dbproduct.Where("Name = ?", name).Find(&productos)
 	fmt.Println("productos: ", productos)
 
 	return productos
+}
+
+func UpdateStock(id int, quantity int) model.Product {
+	var product model.Product
+
+	Dbproduct.Where("ID_product = ?", id).First(&product)
+	Dbproduct.Model(&product).Where("ID_product = ?", id).Update("Stock", product.Stock-quantity)
+	fmt.Println("producto: ", product)
+
+	return product
 }
 
 func InsertProducts(producto model.Product) model.Product {
