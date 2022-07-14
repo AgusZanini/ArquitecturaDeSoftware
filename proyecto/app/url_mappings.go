@@ -13,14 +13,14 @@ import (
 func mapUrls() {
 	//mapeo de los clientes
 
-	router.GET("/client/:client_id", client_controller.GetClientById)
+	router.GET("/client/:id", client_controller.GetClientById)
 	//router.GET("/client/:username", client_controller.GetClientByUsername)
 	router.GET("/client", client_controller.GetClients)
 	router.POST("/client", client_controller.InsertClient)
 
 	//mapeo de los productos
 
-	router.GET("/product/:product_id", product_controller.GetProductById)
+	router.GET("/product/:id", product_controller.GetProductById)
 	router.GET("/search/:name", product_controller.SearchProducts)
 	router.GET("/product", product_controller.GetProducts)
 	router.POST("/product", product_controller.InsertProducts)

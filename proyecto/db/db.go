@@ -3,10 +3,10 @@ package db
 import (
 	//"database/sql"
 
-	//clientclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/client"
-	//productclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/product"
-	//orderclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/order"
-	//orderdetailclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/orderdetail"
+	clientclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/client"
+	orderclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/order"
+	orderdetailclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/orderdetail"
+	productclient "github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/clients/product"
 	"github.com/AgusZanini/ArquitecturaDeSoftware/proyecto/model"
 
 	"gorm.io/driver/mysql"
@@ -44,10 +44,10 @@ func init() {
 	}
 
 	// We need to add all CLients that we build
-	//clientclient.Dbclient = db
-	//productclient.Dbproduct = db
-	//orderclient.Dbclient = db
-	//orderdetailclient.Dborderdetail = db
+	clientclient.Dbclient = db
+	productclient.Dbproduct = db
+	orderclient.Dborder = db
+	orderdetailclient.Dborderdetail = db
 
 }
 

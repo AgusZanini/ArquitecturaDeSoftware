@@ -17,7 +17,6 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-//implementar
 
 func GetClientById(c *gin.Context) {
 	log.Debug("Id de cliente a cargar: " + c.Param("id")) //preguntar

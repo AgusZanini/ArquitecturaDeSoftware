@@ -13,7 +13,9 @@ var Dbclient *gorm.DB
 
 func GetClientById(id int) model.Client {
 	var cliente model.Client
-
+	if Dbclient == nil {
+		fmt.Println("nil client")
+	}
 	Dbclient.Where("ID_client = ?", id).First(&cliente)
 	fmt.Println("Client: ", cliente)
 

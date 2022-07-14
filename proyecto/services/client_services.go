@@ -32,7 +32,7 @@ func (s *clientservice) GetClientById(id int) (dto.ClientDto, errors.ApiError) {
 	var clientDto dto.ClientDto
 
 	if cliente.ID_client == 0 {
-		return clientDto, errors.NewBadRequestApiError("Bad request") //como devolver un error
+		return clientDto, errors.NewBadRequestApiError("Bad request")
 	}
 
 	clientDto.ID_client = cliente.ID_client
