@@ -43,7 +43,7 @@ func (s *productservice) GetProductById(id int) (dto.ProductDto, errors.ApiError
 	return productdto, nil
 }
 
-func (s *productservice) Getproducts() (dto.ProductsDto, errors.ApiError) {
+func (s *productservice) GetProducts() (dto.ProductsDto, errors.ApiError) {
 	var products model.Products = client.GetProducts()
 	var productsdto dto.ProductsDto
 
