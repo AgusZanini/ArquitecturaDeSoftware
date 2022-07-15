@@ -82,7 +82,7 @@ func UpdateStock(id int, sub int) {
 		fmt.Println("nil product")
 	}
 
-	if result := DbProduct.Where("IDproduct = ?", id).First(&producto).Update("Stock", producto.Stock-sub); result.Error != nil {
+	if result := DbProduct.Model(&model.Product{}).Where("IDproduct = ?", id).Update("Stock", producto.Stock-sub); result.Error != nil {
 		fmt.Println("couldn't finde product")
 	}
 

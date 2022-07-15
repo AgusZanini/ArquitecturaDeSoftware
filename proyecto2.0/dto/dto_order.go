@@ -1,12 +1,11 @@
 package dto
 
-type Order struct {
-	IDorder    int     `json:"id"`
-	Totalprice float32 `json:"totalprice"`
-	Discount   float32 `json:"discount"`
-	State      bool    `json:"state"`
-	//Client		Client
-	IDuser int `json:"iduser"`
+type OrderDto struct {
+	IDorder         int             `json:"id"`
+	Totalprice      float32         `json:"totalprice"`
+	State           bool            `json:"state"`
+	IDuser          int             `json:"iduser"`
+	OrderDetailsDto OrderDetailsDto `json:"orderdetails"`
 }
 
-type Orders []Order
+type OrdersDto []OrderDto
