@@ -1,7 +1,8 @@
-package main
+package clients
 
 import (
 	"log"
+	"net/http"
 
 	amqp "github.com/rabbitmq/amqp091-go"
 )
@@ -44,7 +45,20 @@ func Consumer() {
 
 	go func() {
 		for d := range msgs {
-			log.Printf("Received a message: %s", d.Body)
+			url := "http://localhost:8090/items/" + string(d.Body)
+
+			r, err := http.Get(url)
+			body := r.Body
+
+			if err != nil {
+				log.Println(err)
+			}
+
+			r, err = http.Post("http://localhost:8983/solr/items/update/json/docs?commit=true", "application/json", body)
+
+			if err != nil {
+				log.Println(err)
+			}
 		}
 	}()
 

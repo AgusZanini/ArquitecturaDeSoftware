@@ -107,7 +107,7 @@ func (serv *ServiceImpl) InsertItem(ctx context.Context, item dtos.ItemDto) (dto
 	}
 	fmt.Println(fmt.Sprintf("Inserted item in db: %v", result))
 
-	if err := serv.queue.Publish(ctx, item); err != nil {
+	if err := serv.queue.Publish(ctx, result); err != nil {
 		return result, e.NewInternalServerApiError(fmt.Sprintf("Error publishing item %s", item.Id), err)
 	}
 	fmt.Println(fmt.Sprintf("Message sent: %v", result.Id))
