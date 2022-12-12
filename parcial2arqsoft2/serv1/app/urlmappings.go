@@ -8,6 +8,6 @@ import (
 func MapUrls() {
 
 	// Users Mapping
-	router.GET("/item/:id", searchcontroller.Search)
+	router.GET("/search=:id", searchcontroller.Search)
 
 }
