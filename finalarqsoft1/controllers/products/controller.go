@@ -53,3 +53,14 @@ func GetProductsByCategory(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, productsdto)
 }
+
+func GetProducts(c *gin.Context) {
+	productsdto, err := services.ProductService.GetProducts()
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	c.JSON(http.StatusOK, productsdto)
+}

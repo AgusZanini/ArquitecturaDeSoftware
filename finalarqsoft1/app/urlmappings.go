@@ -17,6 +17,7 @@ func mapUrls() {
 
 	// products mappings
 
+	router.GET("/products", producthandler.GetProducts)
 	router.POST("/products", producthandler.InsertProduct)
 	router.GET("/products/search=:Query", producthandler.SearchByName)
 	router.GET("/products/category/:name", producthandler.GetProductsByCategory)

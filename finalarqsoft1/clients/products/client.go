@@ -14,6 +14,7 @@ type productClient struct{}
 type ProductClientInterface interface {
 	InsertProduct(product models.Product) error
 	SearchByName(name string) (models.Products, error)
+	GetProducts() (models.Products, error)
 	GetProductsByCategory(id int) (models.Products, error)
 	UpdateStock(id int, amount int) (models.Product, error)
 	GetproductById(id int) (models.Product, error)
@@ -43,6 +44,18 @@ func (p *productClient) SearchByName(name string) (models.Products, error) {
 	var products models.Products
 
 	result := Db.Where("name LIKE ?", "%"+name+"%").Find(&products)
+
+	if result.Error != nil {
+		return models.Products{}, result.Error
+	}
+
+	return products, nil
+}
+
+func (p *productClient) GetProducts() (models.Products, error) {
+	var products models.Products
+
+	result := Db.Find(&products)
 
 	if result.Error != nil {
 		return models.Products{}, result.Error

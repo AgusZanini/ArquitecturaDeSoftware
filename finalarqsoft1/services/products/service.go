@@ -16,6 +16,7 @@ type productServiceInterface interface {
 	InsertProduct(productdto dtos.Productdto) errors.ApiError
 	SearchByName(name string) (dtos.Productsdto, errors.ApiError)
 	GetProductsByCategory(name string) (dtos.Productsdto, errors.ApiError)
+	GetProducts() (dtos.Productsdto, errors.ApiError)
 }
 
 var (
@@ -87,6 +88,32 @@ func (p *productService) GetProductsByCategory(name string) (dtos.Productsdto, e
 	}
 
 	products, err := p.productClient.GetProductsByCategory(category.Categoryid)
+
+	if err != nil {
+		return dtos.Productsdto{}, errors.NewBadRequestApiError(err.Error())
+	}
+
+	for _, product := range products {
+		var productdto dtos.Productdto
+
+		productdto.Categoryid = product.Categoryid
+		productdto.Description = product.Description
+		productdto.Image = product.Image
+		productdto.Name = product.Name
+		productdto.Price = product.Price
+		productdto.Productid = product.Productid
+		productdto.Stock = product.Stock
+
+		productsdto = append(productsdto, productdto)
+	}
+
+	return productsdto, nil
+}
+
+func (p *productService) GetProducts() (dtos.Productsdto, errors.ApiError) {
+	var productsdto dtos.Productsdto
+
+	products, err := p.productClient.GetProducts()
 
 	if err != nil {
 		return dtos.Productsdto{}, errors.NewBadRequestApiError(err.Error())
