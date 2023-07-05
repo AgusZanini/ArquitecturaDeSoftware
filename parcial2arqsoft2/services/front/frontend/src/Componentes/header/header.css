@@ -1,0 +1,41 @@
+/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
+
+
+
+.global{
+    display: flex;
+    justify-content: right;
+    background-color: rgb(98, 159, 194);
+    }
+    
+    .ul_header{
+        display: flex;
+        width: 1000px;
+        justify-content: space-between;
+        margin-right: 250px;
+        align-items: center;
+    }
+    
+    .botones_menu{
+        text-decoration: none;
+        color: rgb(5, 5, 5);
+        font-weight: 500; /* Ajusta el grosor de la fuente según tus preferencias */
+        letter-spacing: 1px; /* Ajusta el espaciado entre las letras según tus preferencias */
+    }
+    
+    .btn{
+        background: none;
+        color: rgb(15, 15, 15);
+        border-radius: 5px;
+        width: 70px;
+        height: 30px;
+        font-size: 17;
+        font-weight: bold;
+        cursor: pointer;
+        border: 2px solid black;
+        outline: none;
+    }
+    
+    
+    
+    /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/

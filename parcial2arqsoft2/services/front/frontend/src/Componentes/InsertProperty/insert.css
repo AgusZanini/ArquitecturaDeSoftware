@@ -1,0 +1,138 @@
+.container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 200px;
+}
+
+.form-publicar{
+justify-content: center;
+}
+
+.publicar{
+    width: 100%;
+}
+
+.inputp{
+    width: 270px;
+    height: 35px;
+    font-size: 16px;
+    border: 1px solid #c7c7c7;
+    border-radius: 5px;
+    padding-left: 8px;
+    outline: none;
+    margin-bottom: 0.8rem;
+}
+
+.inputpb{
+    width: 270px;
+    height: 35px;
+    font-size: 16px;
+    border: 1px solid #c7c7c7;
+    border-radius: 5px;
+    padding-left: 8px;
+    outline: none;
+    margin-bottom: 0.8rem;
+}
+
+.inputpc{
+    width: 283px;
+    height: 40px;
+    font-size: 16px;
+    border: 1px solid #c7c7c7;
+    border-radius: 5px;
+    padding-left: 8px;
+    outline: none;
+    margin-bottom: 0.8rem;
+}
+
+.btn-summit{
+    background-color: rgb(73, 198, 230);
+    color: black;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
+    font-size: 17px;
+    width: 284px;
+    height: 40px;
+    font-family: 'Noto Sans JP', sans-serif;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: 0.3s;
+    margin-top: 1.9rem;
+}
+
+.btn-summit:hover {
+    transition: 0.3s;
+    background-color: rgb(39, 191, 218);
+}
+
+.div-imagen-form{
+    width: 250px;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    display: none;
+    margin-top: 15px;
+}
+.imagen{
+  object-fit: contain;
+  width:100%;
+  height:100%;
+}
+
+.mensaje_container{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 50px;
+    margin-bottom: 10px;
+    background-color: #c7c7c7;
+}
+
+.form_publicar_mensaje{
+justify-content: center;
+}
+
+.publicar_mensaje{
+    width: 100%;
+}
+
+.input_mensaje{
+    width: 500px;
+    height: 5rem;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #c7c7c7;
+    padding-left: 8px;
+    outline: none;
+    text-align: center;
+}
+
+
+.btn_summit_mensaje{
+    background-color: rgb(255, 181, 44);
+    color: black;
+    border-radius: 5px;
+    display: block;
+    margin: 0 auto;
+    font-size: 17px;
+    width: 284px;
+    height: 40px;
+    font-family: 'Noto Sans JP', sans-serif;
+    cursor: pointer;
+    border: none;
+    outline: none;
+    transition: 0.3s;
+    margin-top: 1.9rem;
+    margin-bottom: 1rem;
+}
+
+.btn_summit_mensaje:hover {
+    transition: 0.3s;
+    background-color: orange;
+}
