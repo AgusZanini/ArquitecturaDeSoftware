@@ -23,7 +23,7 @@ type RepositoryMongoDB struct {
 func NewMongoDB(host string, port int, collection string) *RepositoryMongoDB {
 	client, err := mongo.Connect(
 		context.TODO(),
-		options.Client().ApplyURI(fmt.Sprintf("mongodb://root:root@%s:%d", host, port)))
+		options.Client().ApplyURI(fmt.Sprintf("mongodb://%s:%d/", host, port)))
 	if err != nil {
 		panic(fmt.Sprintf("Error initializing MongoDB: %v", err))
 	}

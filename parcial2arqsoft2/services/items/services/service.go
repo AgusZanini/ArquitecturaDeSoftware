@@ -2,10 +2,11 @@ package services
 
 import (
 	"context"
-	"net/http"
 
 	dtos "items/dtos"
 	e "items/utils/errors"
+
+	"github.com/golang-jwt/jwt"
 )
 
 type Service interface {
@@ -13,5 +14,5 @@ type Service interface {
 	InsertItem(ctx context.Context, Item dtos.ItemDto) (dtos.ItemDto, e.ApiError)
 	InsertItems(ctx context.Context, Items dtos.ItemsDto) (dtos.ItemsDto, e.ApiError)
 	DeleteItemsByUserId(ctx context.Context, userid int) e.ApiError
-	ValidateRequest(r *http.Request) (*dtos.Claims, error)
+	ValidateToken(authToken string) (*jwt.StandardClaims, error)
 }

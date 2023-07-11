@@ -17,19 +17,13 @@ func ComparePasswords(hashedpassword string, plainpassword string) bool {
 	return true
 }
 
-type Claims struct {
-	Userid   int    `json:"userid"`
-	Username string `json:"username"`
-	jwt.StandardClaims
-}
+func GenerateToken(userid int) (string, error) {
+	expirationTime := time.Now().Add(24 * time.Hour) // Ejemplo: expira en 24 horas
 
-func GenerateToken(userid int, username string) (string, error) {
-	claims := &Claims{
-		Userid:   userid,
-		Username: username,
-		StandardClaims: jwt.StandardClaims{
-			ExpiresAt: time.Now().Add(time.Hour * 24).Unix(),
-		},
+	// Crea los claims (datos) del token
+	claims := &jwt.StandardClaims{
+		ExpiresAt: expirationTime.Unix(),
+		Id:        fmt.Sprintf("%d", userid),
 	}
 
 	// creacion de token con claims

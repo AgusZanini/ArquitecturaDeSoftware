@@ -32,6 +32,14 @@ func (ctrl *MessageController) CreateMessage(c *gin.Context) {
 		return
 	}
 
+	userid, err := strconv.Atoi(c.MustGet("userid").(string))
+	if err != nil {
+		log.Error(err)
+		c.JSON(http.StatusConflict, err)
+		return
+	}
+	messagedto.Userid = userid
+
 	messagedto, er := ctrl.MessageService.CreateMessage(messagedto)
 	if er != nil {
 		log.Error(er)
@@ -124,14 +132,14 @@ func (ctrl *MessageController) DeleteMessagesByUser(c *gin.Context) {
 	c.JSON(http.StatusOK, userid)
 }
 
-func (ctrl *MessageController) ValidateRequestAndToken(c *gin.Context) {
-	claims, err := ctrl.MessageService.ValidateRequest(c.Request)
+func (ctrl *MessageController) ValidateToken(c *gin.Context) {
+	auth := c.GetHeader("Authorization")
+	claims, err := ctrl.MessageService.ValidateToken(auth)
 	if err != nil {
 		log.Error(err)
 		c.AbortWithStatusJSON(http.StatusUnauthorized, err)
 		return
 	}
-	c.Set("userid", claims.Userid)
-	c.Set("username", claims.Username)
+	c.Set("userid", claims.Id)
 	c.Next()
 }

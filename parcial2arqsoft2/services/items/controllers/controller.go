@@ -56,14 +56,12 @@ func (ctrl *Controller) InsertItems(c *gin.Context) {
 		return
 	}
 
-	/*
-		userid := c.MustGet("userid").(int)
+	userid := c.MustGet("userid").(int)
 
-		for i := range itemsdto {
-			itemsdto[i].UserId = userid
-		}
+	for i := range itemsdto {
+		itemsdto[i].UserId = userid
+	}
 
-	*/
 	items, apirErr := ctrl.service.InsertItems(c.Request.Context(), itemsdto)
 	if apirErr != nil {
 		c.JSON(apirErr.Status(), apirErr)
@@ -89,16 +87,17 @@ func (ctrl *Controller) DeleteByUserId(c *gin.Context) {
 	c.JSON(http.StatusOK, "items deleted")
 }
 
-func (ctrl *Controller) ValidateTokenAndRequest(c *gin.Context) {
+func (ctrl *Controller) ValidateToken(c *gin.Context) {
 
-	claims, err := ctrl.service.ValidateRequest(c.Request)
+	auth := c.GetHeader("Authorization")
+
+	claims, err := ctrl.service.ValidateToken(auth)
 	if err != nil {
 		apiErr := e.NewUnauthorizedApiError(err.Error())
 		c.JSON(apiErr.Status(), apiErr)
 		return
 	}
 
-	c.Set("userid", claims.Userid)
-	c.Set("username", claims.Username)
+	c.Set("userid", claims.Id)
 	c.Next()
 }

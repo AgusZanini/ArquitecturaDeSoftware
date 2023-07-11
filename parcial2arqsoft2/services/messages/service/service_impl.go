@@ -5,7 +5,6 @@ import (
 	"messages/model"
 	"messages/service/repositories"
 	"messages/utils/errors"
-	"net/http"
 	"strings"
 	"time"
 
@@ -102,46 +101,26 @@ func (s *MessageServiceImpl) GetMessagesByUser(userid int) (dto.MessagesDto, err
 	return messagesdto, nil
 }
 
-func (s *MessageServiceImpl) ValidateToken(tokenString string) (*jwt.Token, error) {
-	// Definir la clave secreta utilizada para firmar el token
-	var jwtKey = []byte("tengohambre")
+func (v *MessageServiceImpl) ValidateToken(authToken string) (*jwt.StandardClaims, errors.ApiError) {
+	tokenString := strings.Split(authToken, " ")[1]
+	claims := &jwt.StandardClaims{}
+	jwtKey := []byte("tengohambre") // VARIABLE DE ENTORNO!
 
-	// Configurar el validador del token
-	token, err := jwt.ParseWithClaims(tokenString, &dto.Claims{}, func(token *jwt.Token) (interface{}, error) {
-		// Verificar el algoritmo de firma
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, errors.NewUnauthorizedApiError("Invalid token")
-		}
+	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
 		return jwtKey, nil
 	})
 
 	if err != nil {
-		return nil, err
+		return nil, errors.NewInternalServerApiError("error parseando token", err)
 	}
 
-	return token, nil
-}
-
-func (s *MessageServiceImpl) ValidateRequest(r *http.Request) (*dto.Claims, error) {
-	// Obtener el token del encabezado de la solicitud
-	authHeader := r.Header.Get("Authorization")
-	if authHeader == "" {
-		return nil, errors.NewBadRequestApiError("Missing authorization header")
+	if !token.Valid {
+		return nil, errors.NewUnauthorizedApiError("token no valido")
 	}
 
-	// Extraer el token de autenticación del encabezado
-	tokenString := strings.TrimPrefix(authHeader, "Bearer ")
-
-	// Validar el token
-	token, err := s.ValidateToken(tokenString)
-	if err != nil {
-		return nil, err
-	}
-
-	// Obtener los claims del token
-	claims, ok := token.Claims.(*dto.Claims)
-	if !ok {
-		return nil, errors.NewUnauthorizedApiError("Invalid token claims")
+	// Verifica si el token ha expirado
+	if time.Now().Unix() > claims.ExpiresAt {
+		return nil, errors.NewUnauthorizedApiError("token expirado")
 	}
 
 	return claims, nil

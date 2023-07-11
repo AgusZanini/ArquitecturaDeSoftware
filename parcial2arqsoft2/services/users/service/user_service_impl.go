@@ -89,7 +89,7 @@ func (s *UserServiceImpl) Login(loginDto dto.LoginRequestDto) (dto.LoginResponse
 		return dto.LoginResponseDto{}, e.NewUnauthorizedApiError("wrong password")
 	}
 
-	tokenstring, err := utils.GenerateToken(user.Id, loginDto.Username)
+	tokenstring, err := utils.GenerateToken(user.Id)
 	if err != nil {
 		return dto.LoginResponseDto{}, e.NewInternalServerApiError("Error generating token", err)
 	}
@@ -98,38 +98,3 @@ func (s *UserServiceImpl) Login(loginDto dto.LoginRequestDto) (dto.LoginResponse
 	log.Debug(loginResponseDto)
 	return loginResponseDto, nil
 }
-
-/*
-func (s *UserServiceImpl) InsertItemsById(itemsdto dto.ItemsDto, token string) (dto.ItemsDto, e.ApiError) {
-
-	// Convertir el objeto item a JSON
-	requestBody, err := json.Marshal(itemsdto)
-	if err != nil {
-		return dto.ItemsDto{}, e.NewBadRequestApiError("Failed to marshal itemdto")
-	}
-
-	// Crear una nueva solicitud POST al endpoint de inserción de items del servicio de items
-	req, err := http.NewRequest("POST", "http://localhost:8090/items", bytes.NewBuffer(requestBody))
-	if err != nil {
-		return dto.ItemsDto{}, e.NewBadRequestApiError("Failed to create insertitem request")
-	}
-
-	// Establecer el encabezado de autorización con el token de acceso
-	req.Header.Set("Authorization", "Bearer "+token)
-
-	// Realizar la solicitud HTTP
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		return dto.ItemsDto{}, e.NewInternalServerApiError("Failed to create http request", err)
-	}
-	defer resp.Body.Close()
-
-	// Verificar la respuesta del servicio de items
-	if resp.StatusCode != http.StatusCreated {
-		return dto.ItemsDto{}, e.NewInternalServerApiError("Error creating items", err)
-	}
-
-	return itemsdto, nil
-}
-*/

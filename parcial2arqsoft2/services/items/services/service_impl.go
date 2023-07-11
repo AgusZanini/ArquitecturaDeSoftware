@@ -2,12 +2,12 @@ package services
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"io"
 	"net/http"
 	"os"
 	"strings"
+	"time"
 
 	//log "github.com/sirupsen/logrus"
 
@@ -148,46 +148,27 @@ func (serv *ServiceImpl) DeleteItemsByUserId(ctx context.Context, userid int) e.
 	return nil
 }
 
-func (v *ServiceImpl) ValidateToken(tokenString string) (*jwt.Token, error) {
-	// Definir la clave secreta utilizada para firmar el token
-	var jwtKey = []byte("tengohambre")
+func (v *ServiceImpl) ValidateToken(authToken string) (*jwt.StandardClaims, error) {
+	tokenString := strings.Split(authToken, " ")[1]
+	claims := &jwt.StandardClaims{}
+	jwtKey := []byte("tengohambre") // VARIABLE DE ENTORNO!
 
-	// Configurar el validador del token
-	token, err := jwt.ParseWithClaims(tokenString, &dtos.Claims{}, func(token *jwt.Token) (interface{}, error) {
-		// Verificar el algoritmo de firma
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, errors.New("invalid token")
-		}
+	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
 		return jwtKey, nil
 	})
 
 	if err != nil {
+		fmt.Println("error parseando claims")
 		return nil, err
 	}
 
-	return token, nil
-}
-
-func (v *ServiceImpl) ValidateRequest(r *http.Request) (*dtos.Claims, error) {
-	// Obtener el token del encabezado de la solicitud
-	authHeader := r.Header.Get("Authorization")
-	if authHeader == "" {
-		return nil, errors.New("missing authorization header")
+	if !token.Valid {
+		return nil, fmt.Errorf("token inválido")
 	}
 
-	// Extraer el token de autenticación del encabezado
-	tokenString := strings.TrimPrefix(authHeader, "Bearer ")
-
-	// Validar el token
-	token, err := v.ValidateToken(tokenString)
-	if err != nil {
-		return nil, err
-	}
-
-	// Obtener los claims del token
-	claims, ok := token.Claims.(*dtos.Claims)
-	if !ok {
-		return nil, errors.New("invalid token claims")
+	// Verifica si el token ha expirado
+	if time.Now().Unix() > claims.ExpiresAt {
+		return nil, fmt.Errorf("el token ha expirado")
 	}
 
 	return claims, nil
