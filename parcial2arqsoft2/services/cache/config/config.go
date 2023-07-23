@@ -6,7 +6,7 @@ var (
 
 	RABBITUSER     = "user"
 	RABBITPASSWORD = "password"
-	RABBITHOST     = "localhost"
+	RABBITHOST     = "rabbit"
 	RABBITPORT     = 5672
 
 	EXCHANGE = "users"

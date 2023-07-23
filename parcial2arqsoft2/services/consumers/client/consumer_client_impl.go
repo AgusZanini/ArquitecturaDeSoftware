@@ -62,7 +62,7 @@ func (q *QueueClient) ConsumeItems() {
 
 	for d := range msgs {
 		go func(d amqp.Delivery) {
-			resp, err := http.Post("http://localhost:8081/", "application/json", bytes.NewReader(d.Body))
+			resp, err := http.Post("http://host.docker.internal:80/", "application/json", bytes.NewReader(d.Body))
 			if err != nil {
 				failOnError(err, fmt.Sprintf("failed to post message consumed on queue %v", queue.Name))
 			}

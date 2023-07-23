@@ -16,7 +16,7 @@ func NewSearchClient() *SearchClient {
 }
 
 func (sc *SearchClient) Search(query string) (*http.Response, error) {
-	baseurl := "http://localhost:8983/solr/items/query"
+	baseurl := "http://host.docker.internal:8983/solr/items/query"
 	// instanciamos url.Values y lo establecemos con el valor de busqueda
 	params := url.Values{}
 	params.Set("q", "title:*"+query+"* OR condition:*"+query+"* OR address:*"+query+"* OR id:*"+query+"*")
@@ -35,7 +35,7 @@ func (sc *SearchClient) Search(query string) (*http.Response, error) {
 }
 
 func (sc *SearchClient) SearchByUserId(id int) (*http.Response, error) {
-	baseurl := "http://localhost:8983/solr/items/query"
+	baseurl := "http://host.docker.internal:8983/solr/items/query"
 
 	params := url.Values{}
 	params.Set("q", "userid:"+fmt.Sprintf("%v", id))
@@ -54,7 +54,7 @@ func (sc *SearchClient) SearchByUserId(id int) (*http.Response, error) {
 
 func (sc *SearchClient) DeleteByUserId(userid int) (*http.Response, error) {
 	// url base
-	baseurl := "http://localhost:8983/solr/items/update"
+	baseurl := "http://host.docker.internal:8983/solr/items/update"
 
 	// URL completa: http://localhost:8983/solr/items/update?commit=true
 	url := fmt.Sprintf("%s?commit=true", baseurl)
@@ -76,7 +76,7 @@ func (sc *SearchClient) DeleteByUserId(userid int) (*http.Response, error) {
 
 func (sc *SearchClient) DeleteAll() (*http.Response, error) {
 	// url base
-	baseurl := "http://localhost:8983/solr/items/update"
+	baseurl := "http://host.docker.internal:8983/solr/items/update"
 
 	// URL completa: http://localhost:8983/solr/items/update?commit=true
 	url := fmt.Sprintf("%s?commit=true", baseurl)

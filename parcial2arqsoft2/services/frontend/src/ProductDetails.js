@@ -7,7 +7,7 @@ import Cookies from 'universal-cookie';
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const url = `http://localhost:8081/search=${id}`;
+  const url = `http://localhost:80/search=${id}`;
   const commentsUrl = `http://localhost:9001/messages`;
   const [products, setProducts] = useState([]);
   const [comments, setComments] = useState([]);

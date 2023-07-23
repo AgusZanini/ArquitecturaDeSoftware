@@ -16,7 +16,7 @@ type QueueClientImpl struct {
 }
 
 func NewQueueClientImpl(user string, password string, host string, port int) *QueueClientImpl {
-	connection, err := amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s:%d", user, password, host, port))
+	connection, err := amqp.Dial(fmt.Sprintf("amqp://%s:%s@%s:%d/", user, password, host, port))
 	if err != nil {
 		log.Panic(err)
 	}

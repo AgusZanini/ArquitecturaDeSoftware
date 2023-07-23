@@ -56,7 +56,13 @@ func (ctrl *Controller) InsertItems(c *gin.Context) {
 		return
 	}
 
-	userid := c.MustGet("userid").(int)
+	useridStr := c.GetString("userid")
+	userid, err := strconv.Atoi(useridStr)
+	if err != nil {
+		apiErr := e.NewBadRequestApiError(err.Error())
+		c.JSON(apiErr.Status(), apiErr)
+		return
+	}
 
 	for i := range itemsdto {
 		itemsdto[i].UserId = userid

@@ -7,11 +7,11 @@ var (
 	CCITEMSTOPRUNE uint32 = 100
 	CCDEFAULTTTL          = 30 * time.Second
 
-	DBHOST     = "localhost"
+	DBHOST     = "items_db"
 	DBPORT     = 27017
 	COLLECTION = "items"
 
-	RABBITHOST = "localhost"
+	RABBITHOST = "rabbit"
 	RABBITPORT = 5672
 	EXCHANGE   = "users"
 )

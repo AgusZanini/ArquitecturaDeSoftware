@@ -66,7 +66,7 @@ func (s *SearchService) SearchByUserId(id int) (dtos.ItemsSolrDto, error) {
 }
 
 func (s *SearchService) InsertItems(itemsdto dtos.ItemsDto) (dtos.ItemsDto, errors.ApiError) {
-	url := "http://localhost:8983/solr/items/update/json/docs?commit=true"
+	url := "http://host.docker.internal:8983/solr/items/update/json/docs?commit=true"
 
 	var itemssolrdto dtos.ItemsSolrDto
 	for _, itemdto := range itemsdto {

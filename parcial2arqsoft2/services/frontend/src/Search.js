@@ -12,7 +12,7 @@ const Search = () => {
 
   const fetchApi = async () => {
     try {
-      const url = "http://localhost:8081/search=" + term;
+      const url = "http://localhost:80/search=" + term;
       const response = await fetch(url);
       const responseJSON = await response.json();
       setProducts(responseJSON);

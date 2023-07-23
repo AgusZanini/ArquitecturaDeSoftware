@@ -1,15 +1,15 @@
 package config
 
 var (
-	DBHOST = "localhost"
+	DBHOST = "users_db"
 	DBPORT = 3306
 	DBNAME = "users"
 	DBUSER = "root"
-	DBPASS = "root"
+	DBPASS = ""
 
 	RABBITUSER     = "user"
 	RABBITPASSWORD = "password"
-	RABBITHOST     = "localhost"
+	RABBITHOST     = "rabbit"
 	RABBITPORT     = 5672
 
 	EXCHANGE = "users"

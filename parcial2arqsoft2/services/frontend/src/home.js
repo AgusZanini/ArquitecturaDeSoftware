@@ -16,7 +16,7 @@ function truncateDescription(description, limit) {
 const Home = () => {
 
   let param = "casa";
-  const url = "http://localhost:8081/search=" + param;
+  const url = "http://localhost:80/search=" + param;
   
   const [products, setProducts] = useState([]);
 

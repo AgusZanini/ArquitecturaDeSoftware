@@ -1,17 +1,17 @@
 package config
 
 var (
-	DBHOST = "localhost"
+	DBHOST = "users_db"
 	DBPORT = 3306
 	DBNAME = "users"
 	DBUSER = "root"
-	DBPASS = "root"
+	DBPASS = ""
 
 	DBTESTHOST = "localhost"
 	DBTESTPORT = 3306
 	DBTESTNAME = "users_test"
 	DBTESTUSER = "root"
-	DBTESTPASS = "root"
+	DBTESTPASS = ""
 
 	RABBITUSER     = "user"
 	RABBITPASSWORD = "password"

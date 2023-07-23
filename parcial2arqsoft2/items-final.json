@@ -1,0 +1,29 @@
+[
+    {
+        "title":"Casa en barrio jardin",
+        "image":"https://static1.sosiva451.com/77249811/bd918b5a-a5c4-4039-8d14-f73d11391ac2_u_small.jpg",
+        "currency":"USD",
+        "price":200000,
+        "state":1,
+        "condition":"disponible",
+        "Address":"Independencia 1004"
+    },
+    {
+        "title":"Casa en barrio general paz",
+        "image":"https://static1.sosiva451.com/3446225/0da4d11c-f714-4ad9-aa68-c92daa0c0ed3_u_small.jpg",
+        "currency":"USD",
+        "price":250000,
+        "state":1,
+        "condition":"disponible",
+        "address":"San Luis 864"
+    },
+    {
+        "title":"departamento en nueva cordoba",
+        "image":"https://static.tokkobroker.com/pictures/16063741996757484451903374651012855392106591905243151025213765742078110118606.jpg",
+        "currency":"USD",
+        "price":275000,
+        "state":1,
+        "condition":"disponible",
+        "address":"chascomus 1000"
+    }
+]

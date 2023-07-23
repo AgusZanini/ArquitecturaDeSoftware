@@ -15,7 +15,7 @@ func BuildDependencies() *Dependencies {
 	// repositories
 	userclient := repositories.NewUserClient(config.DBUSER, config.DBPASS, config.DBHOST, config.DBPORT, config.DBNAME)
 	userclient.StartDbEngine()
-	queueclient := repositories.NewQueueClientImpl(config.RABBITUSER, config.RABBITPASSWORD, config.DBHOST, config.RABBITPORT)
+	queueclient := repositories.NewQueueClientImpl(config.RABBITUSER, config.RABBITPASSWORD, config.RABBITHOST, config.RABBITPORT)
 
 	// services
 	service := services.NewUserServiceImpl(userclient, queueclient)
