@@ -131,17 +131,31 @@ services:
     deploy:
       mode: replicated
       replicas: 2
+  
+  frontend:
+    networks:
+      - front
+    container_name: frontend
+    build: ./frontend
+    depends_on:
+      search_service:
+        condition: service_started
+    volumes:
+      - images:/frontend/public/items
+    ports:
+      - "3000:3000"
 
   nginx:
     container_name: nginx
     build: configs/nginx
     depends_on:
-      busqueda:
+      search_service:
         condition: service_started
     ports:
       - "80:80"
 
   influxdb:
+    container_name: influxdb
     image: influxdb:1.8
     networks:
       - k6
@@ -151,6 +165,7 @@ services:
     environment:
       - INFLUXDB_DB=k6
   grafana:
+    container_name: grafana
     image: grafana/grafana:latest
     networks:
       - grafana
@@ -165,13 +180,14 @@ services:
       - ./load_tests/grafana/grafana-dashboard.yaml:/etc/grafana/provisioning/dashboards/dashboard.yaml
       - ./load_tests/grafana/grafana-datasource.yaml:/etc/grafana/provisioning/datasources/datasource.yaml
   k6:
+    container_name: K6
     image: loadimpact/k6:latest
     networks:
       - k6
     ports:
       - "6565:6565"
     environment:
-      - K6_OUT=influxdb=http://influxdb:8086/k6
+      - K6_OUT=influxdb=http://host.docker.internal:8086/k6
     volumes:
       - ./load_tests/scripts:/scripts
 

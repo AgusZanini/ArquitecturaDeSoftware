@@ -22,7 +22,7 @@ export let options = {
 };
 
 export default function () {
-  const response = http.get("http://host.docker.internal/search=*_*", {headers: {Accepts: "application/json"}});
+  const response = http.get("http://host.docker.internal:80/search=casa", {headers: {Accepts: "application/json"}});
   check(response, { "status is 200": (r) => r.status === 200 });
   const response2 = http.get("http://host.docker.internal:8090/1", {headers: {Accepts: "application/json"}});
   check(response2, { "status is 404": (r) => r.status === 404 });
